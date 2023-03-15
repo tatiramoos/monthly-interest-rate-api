@@ -23,4 +23,8 @@ public class MonthlyInterestRateService implements Serializable {
         List<MonthlyInterestRate> list = client.getAllTaxas().getValue();
         return repository.saveAll(list);
     }
+
+    public List<MonthlyInterestRate> findAll() {
+        return repository.findAll();
+    }
 }

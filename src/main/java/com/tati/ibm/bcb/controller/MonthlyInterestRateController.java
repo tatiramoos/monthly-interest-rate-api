@@ -12,24 +12,36 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/MonthlyInterestRate")
 public class MonthlyInterestRateController {
 
-    private ModelMapper modelMapper;
-
+    private final ModelMapper modelMapper;
     private final MonthlyInterestRateService service;
 
-    public MonthlyInterestRateController(MonthlyInterestRateService service) {
+    public MonthlyInterestRateController(ModelMapper modelMapper, MonthlyInterestRateService service) {
+        this.modelMapper = modelMapper;
         this.service = service;
     }
+
+
+    private MonthlyInterestRateResponse toMonthlyInterestRate (MonthlyInterestRate monthlyInterestRate) {
+        return modelMapper.map(monthlyInterestRate, MonthlyInterestRateResponse.class);
+    }
+
    @GetMapping
     public ResponseEntity<List<MonthlyInterestRate>> getAll() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
-    private MonthlyInterestRateResponse toMonthlyInterestRate (MonthlyInterestRate monthlyInterestRate) {
-        return modelMapper.map(monthlyInterestRate, MonthlyInterestRateResponse.class);
+    @GetMapping("/all-rates")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MonthlyInterestRateResponse> findAll(){
+        return service.findAll().stream()
+                .map(monthlyInterestRate -> modelMapper.map(monthlyInterestRate, MonthlyInterestRateResponse.class))
+                .collect(Collectors.toList());
     }
 }
