@@ -1,21 +1,17 @@
 package com.tati.ibm.bcb.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
-
+import org.springframework.hateoas.RepresentationModel;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MonthlyInterestRateRequest {
-
-    @JsonProperty("id")
-    private Long id;
+public class MonthlyInterestRateRequest extends RepresentationModel<MonthlyInterestRateRequest> {
 
     @JsonProperty("Mes")
     @NotBlank(message = "O campo 'mes' não pode ser vazio")

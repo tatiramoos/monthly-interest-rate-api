@@ -74,5 +74,4 @@ public class MonthlyInterestRateController {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 }

@@ -1,10 +1,13 @@
 package com.tati.ibm.bcb.mapper;
 
+import com.tati.ibm.bcb.controller.MonthlyInterestRateController;
 import com.tati.ibm.bcb.model.MonthlyInterestRate;
 import com.tati.ibm.bcb.request.MonthlyInterestRateRequest;
 import com.tati.ibm.bcb.response.MonthlyInterestRateResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,7 +24,10 @@ public class MonthlyInterestRateMapper {
     }
 
     public MonthlyInterestRateResponse toMonthlyInterestRateResponse(MonthlyInterestRate monthlyInterestRate) {
-        return modalMapper.map(monthlyInterestRate, MonthlyInterestRateResponse.class);
+        MonthlyInterestRateResponse response = modalMapper.map(monthlyInterestRate, MonthlyInterestRateResponse.class);
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MonthlyInterestRateController.class).findById(response.getId())).withSelfRel());
+        response.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(MonthlyInterestRateController.class).findAll()).withSelfRel());
+        return response;
     }
 
     public List<MonthlyInterestRateResponse> toMonthlyInterestRateResponseList(List<MonthlyInterestRate> monthlyInterestRateList) {

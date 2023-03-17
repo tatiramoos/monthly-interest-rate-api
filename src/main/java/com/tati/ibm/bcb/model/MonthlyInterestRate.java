@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "taxa_juros_mensal")
-public class MonthlyInterestRate implements Serializable {
+public class MonthlyInterestRate extends RepresentationModel<MonthlyInterestRate> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

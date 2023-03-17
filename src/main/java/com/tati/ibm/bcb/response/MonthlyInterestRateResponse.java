@@ -1,18 +1,14 @@
 package com.tati.ibm.bcb.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
+import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MonthlyInterestRateResponse {
+public class MonthlyInterestRateResponse extends RepresentationModel<MonthlyInterestRateResponse> {
 
     @JsonProperty("id")
     private Long id;
